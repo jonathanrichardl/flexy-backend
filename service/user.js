@@ -3,32 +3,35 @@ class UserUseCase{
     constructor(userRepository){
         this.userRepository = userRepository;
     }
-    async login(username, password){
+    login(username, password){
         let result = false;
-        await this.userRepository.getByUsername(username).then((user)=>{
-            if (user[0].password == password){
-                result = true;
-            } 
-            else{
-                result = false;
-            }
+        let userid;
+        return this.userRepository.getByUsername(username).then((user)=>{
+            return new Promise((resolve,reject) => {
+                if (user[0].password == password){
+                    result = true;
+                    userid = user[0].user_id
+                    resolve([result, userid])
+                } 
+                else{
+                    result = false;
+                    reject(result)
+                }
+            })
         }).catch((error)=>{
             console.log(error)
-            return false
         })
-        return result;
     }
 
-    async create(username, password){
-        let result = false
+    create(username, password){
         let newUser = entity.newUser(username, password)
-        await this.userRepository.create(newUser).then((succesful) => {
-            result = true
+        return this.userRepository.create(newUser).then((succesful) => {
+            return new Promise((resolve,reject) => {
+                resolve(true)
+            })
         }).catch((error)=>{
             console.log(error)
-            result = false
         })
-        return result
     }
 }
 
