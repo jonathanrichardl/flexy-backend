@@ -1,4 +1,4 @@
-var entity = require('../entity/course')
+var entity = require('../entity/entity')
 class CourseUseCase{
     constructor(courseRepository){
         this.courseRepository = courseRepository;
@@ -52,18 +52,18 @@ class CourseUseCase{
         try{
             await this.courseRepository.create(course);
         } catch(e){
-            return Promise.reject(e);
+            console.log(e)
+            return false
         }
-        courseModules.forEach(element => {
+        courseModules.forEach(async element => {
             try{
                 await this.courseRepository.insertCourseModule(element, course.Id)
             } catch(e){
-                return Promise.reject(e);
+                console.log(e)
+                return false
             }
         });
-        return Promise.resolve(true)
-    
-
+        return true
     }
 
 

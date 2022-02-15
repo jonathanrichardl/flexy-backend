@@ -1,4 +1,5 @@
 const user = require('./user')
+const course = require('./courses')
 const express = require('express')
 const bodyParser = require('body-parser')
 const cookieParser = require('cookie-parser');
@@ -18,8 +19,9 @@ class Controller{
             next();
         });
         this.app.post("/login", this.jsonParser,  user.login.bind(this));
-        this.app.post("/newuser", this.jsonParser, user.createUser.bind(this))
-        this.app.get("/profile", this.jsonParser, user.getUserProfile.bind(this) )
+        this.app.post("/newuser", this.jsonParser, user.createUser.bind(this));
+        this.app.get("/profile", this.jsonParser, user.getUserProfile.bind(this) );
+        this.app.post("/courses", this.jsonParser, course.newCourse.bind(this));
     }
     start(){
         this.app.listen(this.port, ()=>{

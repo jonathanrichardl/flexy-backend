@@ -11,7 +11,7 @@ class Course{
 
 function newCourse(courseName, courseThumbnail, modules){
     let courseId = entity.newUuid();
-    let totalModules = len(module);
+    let totalModules = modules.length;
     return new Course(courseId, courseName, courseThumbnail, totalModules, modules);
 }
 
@@ -27,4 +27,4 @@ function newModule(texts, audio){
     return new Module(texts, audio)
 }
 
-module.exports = {Course, newCourse, Module}
+module.exports = {Course, newCourse, Module, newModule}

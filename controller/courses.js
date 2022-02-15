@@ -1,19 +1,20 @@
 const models = require('./models')
-
 exports.newCourse = function(req, res){
     let courseDetail = req.body;
-    this.userService.login(credentials.username, credentials.password).then((result) => {
-        if(result[0]){
-            res.cookie('flexysession', result[1])
-            res.end(models.buildPayload('Login Succesful', null));
-        }
-        else{
+    this.courseService.createCourse(courseDetail.course_name, 
+        courseDetail.course_thumbnail, courseDetail.course_modules).then((result) => {
+            if(result){
+                res.status(201)
+                res.end(models.buildPayload('Course Added', null));
+            }
+            else{
+                res.status(405)
+                res.end(models.buildPayload('Server Error While Creating, Check log', null));
+            }
+        }).catch(error => {
+            console.log(error)
             res.status(405)
-            res.end(models.buildPayload('Login Failed', null));
-        }
-    }).catch((error)=>{
-        console.log(error);
-        res.status(500)
-        res.end(models.buildPayload('Server Error Occured', null));
-    })
+            res.end(models.buildPayload('Server Error, Check log', null))
+        })
+    
 }

@@ -25,4 +25,4 @@ CREATE TABLE course_module(
     FOREIGN KEY(course_id) REFERENCES course(course_id) ON DELETE CASCADE 
 );
 
-SELECT * from users;
+SELECT * from course;
