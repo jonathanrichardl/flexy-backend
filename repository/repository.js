@@ -1,6 +1,8 @@
 // infrastructure / repository layer
 var mysql      = require('mysql');
 var userRepository = require('./user')
+var courseRepository = require('./course')
+
 function SqlConnection (host, user, password, database) {
     this.connection = mysql.createConnection({
         host: host,
@@ -18,6 +20,7 @@ function SqlConnection (host, user, password, database) {
         })
     }
     this.userRepo = new userRepository.UserRepository(this)
+    this.courseRepo = new courseRepository.CourseRepository(this)
 }
 
 
