@@ -15,11 +15,13 @@ class UserUseCase{
                 } 
                 else{
                     result = false;
-                    reject(result)
+                    reject([result, ""])
                 }
             })
         }).catch((error)=>{
-            console.log(error)
+            return new Promise((resolve,reject) => {
+                reject(error)
+            })
         })
     }
 
@@ -30,7 +32,21 @@ class UserUseCase{
                 resolve(true)
             })
         }).catch((error)=>{
-            console.log(error)
+            return new Promise((resolve,reject) => {
+                reject(error)
+            })
+        })
+    }
+
+    getUserProfile(id){
+        return this.userRepository.getByUserId(id).then((user)=>{
+            return new Promise((resolve,reject) => {
+                resolve(user)
+            })
+        }).catch((error)=>{
+            return new Promise((resolve,reject) => {
+                reject(error)
+            })
         })
     }
 }
