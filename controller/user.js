@@ -33,10 +33,20 @@ exports.createUser = function (req,res){
 
 exports.getUserProfile = function(req,res){
     let userID = req.cookies.flexysession
-    console.log(userID)
     this.userService.getUserProfile(userID).then((user)=>{
         res.end(models.buildPayload("Profile Retrieved", user))
     }).catch((error)=>{
+        console.log(error)
+        res.status(500)
+        res.end(models.buildPayload("Internal Server Error", null))
+    })
+}
+
+exports.getCertificates = function(req, res){
+    let userID = req.cookies.flexysession
+    this.certificateService.seeAllCertitication(userID).then((certificates) =>{
+        res.end(models.buildPayload("Certificates Retrieved", certificates))
+    }).catch(error => {
         console.log(error)
         res.status(500)
         res.end(models.buildPayload("Internal Server Error", null))

@@ -25,4 +25,10 @@ CREATE TABLE course_module(
     FOREIGN KEY(course_id) REFERENCES course(course_id) ON DELETE CASCADE 
 );
 
-SELECT * from course;
+CREATE TABLE certifications(
+	user_id varchar(37),
+    course_id varchar(37),
+    course_name varchar(100)
+);
+use flexy;
+SELECT * from course_module;

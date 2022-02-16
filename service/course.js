@@ -18,7 +18,7 @@ class CourseUseCase{
 
     getCourseDetail(courseID){
         return this.courseRepository.getByCourseID(courseID).then((course)=>{
-            this.courseRepository.getCourseModules(courseID).then((courseModules) =>{
+            return this.courseRepository.getCourseModules(courseID).then((courseModules) =>{
                 return new Promise((resolve,reject) => {
                     let modules = [];
                     courseModules.forEach(element => {
@@ -28,11 +28,12 @@ class CourseUseCase{
                         ));
                     });
                     let courseData = new entity.Course(
-                        course.course_id,
-                        course.course_name,
-                        course.course_thumbnail,
-                        course.total_modules,
+                        course[0].course_id,
+                        course[0].course_name,
+                        course[0].course_thumbnail,
+                        course[0].total_modules,
                         modules);
+                    console.log(courseData)
                     resolve(courseData);
                 });
             }).catch((error)=>{

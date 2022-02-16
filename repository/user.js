@@ -3,11 +3,11 @@ class UserRepository{
         this.db = db;
     }
     getByUserId(userId){
-        return this.db.executeQuery(`SELECT username, wallet FROM users WHERE user_id = '${userId}'`);
+        return this.db.executeQuery(`SELECT user_id, username, wallet FROM users WHERE user_id = '${userId}'`);
     }
 
     getByUsername(username){
-        return this.db.executeQuery(`SELECT username, password FROM users WHERE username = '${username}'`)
+        return this.db.executeQuery(`SELECT * FROM users WHERE username = '${username}'`)
     }
 
     create(user){
@@ -20,7 +20,7 @@ class UserRepository{
     }
 
     update(user){
-        return this.db.executeQuery(`UPDATE users SET username = '${user.username}', password = '${user.password}', wallet = '${user.wallet}' WHERE user_id = '${user_id}`)
+        return this.db.executeQuery(`UPDATE users SET username = '${user.username}', wallet = '${user.wallet}' WHERE user_id = '${user.user_id}'`)
     }
 
 }

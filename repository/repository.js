@@ -2,6 +2,7 @@
 var mysql      = require('mysql');
 var userRepository = require('./user')
 var courseRepository = require('./course')
+var certificateRepository = require('./certificates')
 
 function SqlConnection (host, user, password, database) {
     this.connection = mysql.createConnection({
@@ -21,6 +22,7 @@ function SqlConnection (host, user, password, database) {
     }
     this.userRepo = new userRepository.UserRepository(this)
     this.courseRepo = new courseRepository.CourseRepository(this)
+    this.certificateRepo = new certificateRepository.CertificatesRepository(this)
 }
 
 

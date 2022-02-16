@@ -49,6 +49,15 @@ class UserUseCase{
             })
         })
     }
+
+    update(user){
+        return this.userRepository.update(user).then(result => {
+            return Promise.resolve(true)
+        }).catch(error => {
+            console.log(error)
+            return Promise.reject(true)
+        })
+    }
 }
 
 module.exports = {UserUseCase}
